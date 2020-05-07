@@ -11,6 +11,7 @@ import { CameraComponent } from './components/camera/camera.component';
 import { MaterialModule } from './common/material/material.module';
 
 import { WebcamModule } from 'ngx-webcam';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { WebcamModule } from 'ngx-webcam';
     PartListComponent,
     HeaderComponent,
     SidebarComponent,
-    CameraComponent
+    CameraComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
