@@ -1,0 +1,50 @@
+<div class="part-list-container">
+
+  <div class='header'>
+    <div>
+      <h1 class="h1">Part List</h1>
+    </div>
+  </div>
+  <hr>
+
+  <div class="mat-form">
+    <mat-form-field>
+      <input (keyup)="searchEmployee($event.target.value)" matInput placeholder="Search Tool">
+    </mat-form-field>
+  </div>
+
+  <mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8' matSortActive="name" matSortDirection="asc"
+             matSortDisableClear>
+
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="photo">
+      <mat-header-cell class="mat-header-img" *matHeaderCellDef> Photo </mat-header-cell>
+      <mat-cell class="mat-cell-img" *matCellDef="let element"><img [src]="element.photo"
+                                                                    onerror="src='assets/images/error_404.png';"/>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="partNumber">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Part Number</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.partNumber}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Status</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <div class="square {{cssClassForStatus[element.status]}}"></div>
+      </mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5 , 10, 25, 100]"></mat-paginator>
+
+</div>

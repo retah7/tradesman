@@ -1,0 +1,17 @@
+#part_scanner_cam {
+  .webcam-wrapper {
+      width: 100%;
+      video {
+          width: 50%;
+          height: auto;
+
+          @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+            width: 70%;
+          }
+          @media only screen and (max-device-width: 768px) {
+            width: 100%;
+          }
+          object-fit: cover;
+      }
+  }
+}

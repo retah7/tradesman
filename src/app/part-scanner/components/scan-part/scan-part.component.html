@@ -1,0 +1,25 @@
+<div class="scan-part-container">
+  <div class='header'>
+    <div>
+      <h1 class="h1">Scan Part</h1>
+    </div>
+  </div>
+  <hr />
+  <div class="search">
+    <mat-form-field>
+      <mat-label>Department</mat-label>
+      <mat-select [(value)]="selectedOutlineImage" name="outlineImg">
+        <mat-option>All</mat-option>
+        <mat-option *ngFor="let outlineImage of outlineImageList" [value]="outlineImage.src">
+          {{outlineImage.image}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <app-camera [imageSrc]='selectedOutlineImage' (pictureTaken)="handleImage($event)"></app-camera>
+
+  <div class="snapshot" *ngIf="webcamImage">
+    <img class="col-lg-2 col-md-4 col-sm-12 col-xs-12" [src]="webcamImage.imageAsDataUrl" />
+  </div>
+</div>

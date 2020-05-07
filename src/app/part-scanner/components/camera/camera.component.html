@@ -1,0 +1,23 @@
+<div class="camera-container">
+  <div style="text-align:center">
+    <div>
+      <div class="webcam-cont">
+        <webcam [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+                id="part_scanner_cam"
+                [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" (cameraSwitched)="cameraWasSwitched($event)"
+                (initError)="handleInitError($event)"></webcam>
+        <div class="overlay-img" *ngIf="imageSrc">
+          <img [src]="imageSrc">
+        </div>
+      </div>
+      <button type="button" class="btn btn-default not-focusable" (click)="triggerSnapshot();">
+        Capture Image
+      </button>
+    </div>
+  </div>
+
+  <h4 *ngIf="errors.length > 0">Messages:</h4>
+  <ul *ngFor="let error of errors">
+    <li>{{error | json}}</li>
+  </ul>
+</div>
