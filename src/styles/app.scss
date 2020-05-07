@@ -10,7 +10,7 @@
 // @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 // @import '../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css';
 
-@import "../app/part-scanner/components/camera/web-component.scss";
+@import "../app/tradesman/components/camera/web-component.scss";
 
 @media print {
     .breadcrumb {
@@ -21,7 +21,7 @@ body {
     // background-color: #f8f9fa;
     background-color: #fff;
 
-    
+
     font-family: heebo, roboto;
     .cdk-overlay-container {
         z-index: 1050;
@@ -32,7 +32,7 @@ body {
     }
     .no-permission {
         // pointer-events: all !important;
-        
+
         cursor: none;
         // &::after {
         //     content: "No permission";

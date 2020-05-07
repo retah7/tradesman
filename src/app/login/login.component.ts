@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService } from '../part-scanner/services/api.service';
+import { ApiService } from '../tradesman/services/api.service';
 import { AuthGuard } from '../shared';
 import { routerTransition } from '../router.animations';
 

@@ -5,7 +5,6 @@ import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { PartScannerRoutingModule } from './part-scanner-routing.module';
 import { PartScannerComponent } from './part-scanner.component';
 import { PartListComponent } from './components/part-list/part-list.component';
-import { ScanPartComponent } from './components/scan-part/scan-part.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { CameraComponent } from './components/camera/camera.component';
@@ -17,7 +16,6 @@ import { WebcamModule } from 'ngx-webcam';
   declarations: [
     PartScannerComponent,
     PartListComponent,
-    ScanPartComponent,
     HeaderComponent,
     SidebarComponent,
     CameraComponent
