@@ -14,8 +14,7 @@ const routes: Routes = [
     children: [
       { path: '', pathMatch: 'full', redirectTo: 'scan-part' },
       { path: 'home', component: HomeComponent },
-      { path: 'part-list', component: PartListComponent },
-      // { path: 'visitor-management', component: VisitorManagementComponent },
+      { path: 'part-list', component: PartListComponent }
     ]
 }
 ];

@@ -1,0 +1,7 @@
+{
+  "/live_market/dynaContent/live_analysis/most_active/CallsALLVolume.json": {
+    "target": "https://www1.nseindia.com",
+    "secure": "false",
+    "changeOrigin": true
+  }
+}

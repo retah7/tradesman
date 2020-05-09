@@ -30,6 +30,8 @@ export class RestClient {
                     } else {
                         observer.next(response);
                     }
+                }, (err) =>{
+                  observer.error(err);
                 });
             } else {
                 return this.http.post(url, payload, this.getHttpOptions()).subscribe(response => {
