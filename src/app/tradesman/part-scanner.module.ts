@@ -12,6 +12,7 @@ import { MaterialModule } from './common/material/material.module';
 
 import { WebcamModule } from 'ngx-webcam';
 import { HomeComponent } from './components/home/home.component';
+import { CallsPutsComponent } from './components/calls-puts/calls-puts.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HomeComponent } from './components/home/home.component';
     HeaderComponent,
     SidebarComponent,
     CameraComponent,
-    HomeComponent
+    HomeComponent,
+    CallsPutsComponent
   ],
   imports: [
     CommonModule,

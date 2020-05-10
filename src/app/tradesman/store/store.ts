@@ -10,7 +10,12 @@ class Store {
 
   initialize() {
     const tradesManDb = LS.get('tradesman');
-    if ( tradesManDb.initializationId !== getEndTimeStampOfToday()) {
+    if( !tradesManDb ) {
+      LS.set('tradesman', {
+        initializationId: getEndTimeStampOfToday(),
+        time: new Date().getTime()
+      });
+    } else if ( tradesManDb.initializationId !== getEndTimeStampOfToday()) {
       LS.set('tradesman', {
         initializationId: getEndTimeStampOfToday(),
         time: new Date().getTime()

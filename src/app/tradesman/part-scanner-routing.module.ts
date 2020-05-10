@@ -12,7 +12,7 @@ const routes: Routes = [
     component: PartScannerComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'scan-part' },
+      { path: '', pathMatch: 'full', redirectTo: 'home' },
       { path: 'home', component: HomeComponent },
       { path: 'part-list', component: PartListComponent }
     ]
