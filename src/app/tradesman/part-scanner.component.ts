@@ -9,10 +9,12 @@ import Store from './store/store';
 export class PartScannerComponent implements OnInit {
 
   public collapedSideBar: boolean;
-  constructor() { }
+  constructor() {
+    Store.initialize();
+  }
 
   ngOnInit() {
-    Store.initialize();
+
   }
 
   receiveCollapsed($event) {

@@ -4,6 +4,8 @@ import {Injectable} from '@angular/core';
 import {saveFile} from '../utils/file-saver';
 import {formatToDDMMYY, formatToHHMMSS} from '../utils/date-formatter';
 import {MostActiveCallsResponse} from './most-active-calls-response';
+import Store from './../store/store';
+import StoreOperation from './../store/store-operation';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +16,13 @@ export class MostActiveCallFetcher {
   response: MostActiveCallsResponse;
   lastCallCompleted: any;
   continuousErrorCount: number;
+  activeCallsStore: StoreOperation;
 
   constructor(private activeCallsPutsService: ActiveCallsPutsService) {
     this.fetchHistory = [];
     this.lastCallCompleted = true;
     this.continuousErrorCount = 0;
+    this.activeCallsStore = Store.getIndexData('activeCalls', []);
   }
 
   public start() {
@@ -54,8 +58,10 @@ export class MostActiveCallFetcher {
     if ( this.isUniqueDataFound(transformedResponse) ) {
       console.log('tran.ID', transformedResponse.id);
       this.response = transformedResponse;
+      // Store.
       this.addToFetchHistory();
       // this.saveJsonFile();
+      this.activeCallsStore.set([...this.activeCallsStore.get(), this.response]);
     } else {
       console.log('Found same data');
     }
