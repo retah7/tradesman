@@ -3,78 +3,71 @@ import {ActiveCallsPutsService} from '../services/active-calls-puts.service';
 import {Injectable} from '@angular/core';
 import {saveFile} from '../utils/file-saver';
 import {formatToDDMMYY, formatToHHMMSS} from '../utils/date-formatter';
+import {MostActiveCallsResponse} from './most-active-calls-response';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MostActiveCallFetcher {
 
-  fetchHistory: [];
-  response: {};
-  refreshIntervalId: any;
+  fetchHistory: any;
+  response: MostActiveCallsResponse;
   lastCallCompleted: any;
-  contineousErrorCount: number;
-  fetchLog: [];
+  continuousErrorCount: number;
 
   constructor(private activeCallsPutsService: ActiveCallsPutsService) {
     this.fetchHistory = [];
-    this.response = {
-      id: null,
-      data: null
-    };
     this.lastCallCompleted = true;
-    this.contineousErrorCount = 0;
-    this.fetchLog = [];
+    this.continuousErrorCount = 0;
   }
 
   public start() {
     setTimeout(() => {
-      console.log("setTimeout");
+      console.log('setTimeout');
       this.fetch();
     }, SCHEDULAR_TIMEINTERVAL.MOST_ACTIVE_CALLS);
   }
 
   private fetch() {
     console.log(this.fetchHistory);
-    console.log("Last call completed, making new one");
+    console.log('Last call completed, making new one');
     this.lastCallCompleted = false;
-    this.activeCallsPutsService.loadLeaseDdetails().subscribe(response => {
-      this.lastCallCompleted = true;
-      this.contineousErrorCount = 0;
-      console.log('is interval running', this.refreshIntervalId);
-      this.setResponse(response);
+    this.activeCallsPutsService.loadCalls().subscribe(response => {
 
-      this.addToFetchHistory();
-      // this.saveJsonFile();
+      this.lastCallCompleted = true;
+      this.continuousErrorCount = 0;
+      this.processData(response);
       this.start();
     }, () => {
       this.lastCallCompleted = true;
-      this.contineousErrorCount++;
-      console.log('Error occured: trying count', this.contineousErrorCount);
-      if( this.contineousErrorCount < 5 ) {
+      this.continuousErrorCount++;
+      console.log('Error occurred: trying count', this.continuousErrorCount);
+      if (this.continuousErrorCount < 5) {
         this.start();
-      } ek
+      }
     });
 
   }
 
-  private isSameData() {
+  private processData(response) {
+    const transformedResponse = new MostActiveCallsResponse(response);
+    if ( this.isUniqueDataFound(transformedResponse) ) {
+      console.log('tran.ID', transformedResponse.id);
+      this.response = transformedResponse;
+      this.addToFetchHistory();
+      // this.saveJsonFile();
+    } else {
+      console.log('Found same data');
+    }
+  }
 
+  private isUniqueDataFound(response) {
+    return this.fetchHistory.indexOf(response.id) === -1;
   }
 
   private saveJsonFile() {
     const fileName = 'Most_Active_Calls_' + formatToDDMMYY(this.response.dateObj) + formatToHHMMSS(this.response.dateObj) + '.json';
-    saveFile(JSON.stringify(this.response.data), fileName, "application/json");
-  }
-
-  private setResponse(response) {
-    console.log(response);
-    this.response = {
-      ...response,
-      id: new Date(response.time).getTime(),
-      dateObj: new Date(response.time)
-    };
-
+    saveFile(JSON.stringify(this.response.data), fileName, 'application/json');
   }
 
   private getResponse() {
@@ -85,12 +78,8 @@ export class MostActiveCallFetcher {
     return this.response.id;
   }
 
-  addFetchLog(msg, status) {
-    this.fetchLog.push[{count: this.fetchLog.length + 1, msg: msg, status: status}];
-  }
-
   private addToFetchHistory() {
-    this.fetchHistory.push(this.getResponseId());
+    this.fetchHistory.push(this.response.id);
   }
 
 }

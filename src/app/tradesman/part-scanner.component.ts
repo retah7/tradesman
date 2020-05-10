@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Store from './store/store';
 
 @Component({
   selector: 'app-part-scanner',
@@ -11,6 +12,7 @@ export class PartScannerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    Store.initialize();
   }
 
   receiveCollapsed($event) {
