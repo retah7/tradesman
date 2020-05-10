@@ -1,5 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
+import Store from '../../store/store';
+import StoreOperation from '../../store/store-operation';
 
 @Component({
   selector: 'app-calls-puts',
@@ -15,6 +17,7 @@ export class CallsPutsComponent implements OnInit {
     M: 'missing',
     D: 'done'
   };
+  activeCallsStore: StoreOperation;
 
   @ViewChild(MatSort, {static: false}) set matSort(sort: MatSort) {
     this.dataSource.sortingDataAccessor = (data: any, sortHeaderId: string): string => {
@@ -33,15 +36,10 @@ export class CallsPutsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    const dummyData = [
-      {position: 1, photo: 'https://www.asdreports.com/media/PR_5389.jpg', partNumber: 'AP-012320', status: 'D'},
-      {position: 2, photo: 'https://www.asdreports.com/media/PR_5389.jpg', partNumber: 'CF-343488', status: 'M'},
-      {position: 3, photo: 'https://www.asdreports.com/media/PR_5389.jpg', partNumber: 'DP-453432', status: 'P'},
-      {position: 4, photo: 'https://www.asdreports.com/media/PR_5389.jpg', partNumber: 'JP-342344', status: 'M'},
-      {position: 5, photo: 'https://www.asdreports.com/media/PR_5389.jpg', partNumber: 'PI-343432', status: 'D'},
-    ];
-
-    this.dataSource = new MatTableDataSource(dummyData);
+    this.activeCallsStore = Store.getIndexData('activeCalls', []);
+    const data  = [].concat(...this.activeCallsStore.get().map(d => d.data.map(row => ({...row, time: d.time}))));
+    console.log(data);
+    this.dataSource = new MatTableDataSource(data);
   }
 
 }

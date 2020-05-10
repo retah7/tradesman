@@ -7,37 +7,37 @@
   </div>
   <hr>
 
-  <mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8' matSortActive="name" matSortDirection="asc"
+  <mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8' matSortActive="time" matSortDirection="asc"
              matSortDisableClear>
 
     <ng-container matColumnDef="time">
       <mat-header-cell *matHeaderCellDef> Time. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="symbol">
       <mat-header-cell class="mat-header-img" *matHeaderCellDef> Symbol </mat-header-cell>
-      <mat-cell class="mat-cell-img" *matCellDef="let element"><img [src]="element.photo"
-                                                                    onerror="src='assets/images/error_404.png';"/>
+      <mat-cell class="mat-cell-img" *matCellDef="let element">
+        {{element.symbol}}
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="strikePrice">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Strike Price</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.partNumber}} </mat-cell>
+      <mat-cell *matCellDef="let element" class="number-col"> {{element.strikePrice}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="volume">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Volume</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <div class="square {{cssClassForStatus[element.status]}}"></div>
+      <mat-cell *matCellDef="let element" class="number-col">
+        <div class="square">{{element.noOfContractsTraded}}</div>
       </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="premium">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Premium</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <div class="square {{cssClassForStatus[element.status]}}"></div>
+      <mat-cell *matCellDef="let element" class="number-col">
+        <div class="square">{{element.contractValuePremRsLakhs}}</div>
       </mat-cell>
     </ng-container>
 
@@ -46,6 +46,6 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator [pageSizeOptions]="[5 , 10, 25, 100]"></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[25, 100, 200, 500]"></mat-paginator>
 
 </div>

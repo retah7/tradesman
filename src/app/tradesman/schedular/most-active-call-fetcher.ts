@@ -19,10 +19,10 @@ export class MostActiveCallFetcher {
   activeCallsStore: StoreOperation;
 
   constructor(private activeCallsPutsService: ActiveCallsPutsService) {
-    this.fetchHistory = [];
+    this.activeCallsStore = Store.getIndexData('activeCalls', []);
+    this.fetchHistory = [...this.activeCallsStore.get().map(data => data.id)];
     this.lastCallCompleted = true;
     this.continuousErrorCount = 0;
-    this.activeCallsStore = Store.getIndexData('activeCalls', []);
   }
 
   public start() {
@@ -33,8 +33,8 @@ export class MostActiveCallFetcher {
   }
 
   private fetch() {
-    console.log(this.fetchHistory);
-    console.log('Last call completed, making new one');
+    // console.log(this.fetchHistory);
+    // console.log('Last call completed, making new one');
     this.lastCallCompleted = false;
     this.activeCallsPutsService.loadCalls().subscribe(response => {
 
