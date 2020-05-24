@@ -39,11 +39,11 @@ export class CallsPutsComponent implements OnInit {
   ngOnInit() {
     this.activeCallsStore = Store.getIndexData('activeCalls', []);
     const data  = [].concat(...this.activeCallsStore.get().map(d => {
-      if(d && d.data) d.data.map(row => ({...row, time: d.time}));
+      if(d && d.data) return d.data.map(row => ({...row, time: d.time}));
       else return {...d, data : []};
     }));
-    this.dataCount = this.activeCallsStore.get().length;
     console.log(data);
+    this.dataCount = this.activeCallsStore.get().length;
     this.dataSource = new MatTableDataSource(data);
   }
 
