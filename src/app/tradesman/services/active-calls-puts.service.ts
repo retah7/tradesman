@@ -686,16 +686,17 @@ export class ActiveCallsPutsService {
   public loadCalls(): Observable<any> {
     console.log("Inside service")
     return Observable.create((observer: Observer<any>) => {
-      const index = (Math.floor(Math.random() * 4) + 1) -1;
-      console.log('index', index);
-      observer.next(data[index]);
-      observer.complete();
-      // this.http.get(config.MOST_ACTIVE_CALLS).subscribe(response => {
-      //   this.changeLease(response);
-      // }, (err) => {
-      //   observer.error(err);
-      //
-      // });
+      // const index = (Math.floor(Math.random() * 4) + 1) -1;
+      // console.log('index', index);
+
+      this.http.get(config.MOST_ACTIVE_CALLS).subscribe(response => {
+        observer.next(response);
+        observer.complete();
+        this.changeLease(response);
+      }, (err) => {
+        observer.error(err);
+
+      });
     });
   }
 }

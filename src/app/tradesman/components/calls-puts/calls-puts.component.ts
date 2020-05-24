@@ -12,6 +12,7 @@ export class CallsPutsComponent implements OnInit {
 
   displayedColumns: string[] = ['time', 'symbol', 'strikePrice', 'volume', 'premium'];
   dataSource: any;
+  dataCount: any;
   cssClassForStatus = {
     P: 'pending',
     M: 'missing',
@@ -37,7 +38,11 @@ export class CallsPutsComponent implements OnInit {
 
   ngOnInit() {
     this.activeCallsStore = Store.getIndexData('activeCalls', []);
-    const data  = [].concat(...this.activeCallsStore.get().map(d => d.data.map(row => ({...row, time: d.time}))));
+    const data  = [].concat(...this.activeCallsStore.get().map(d => {
+      if(d && d.data) d.data.map(row => ({...row, time: d.time}));
+      else return {...d, data : []};
+    }));
+    this.dataCount = this.activeCallsStore.get().length;
     console.log(data);
     this.dataSource = new MatTableDataSource(data);
   }

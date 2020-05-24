@@ -12,7 +12,7 @@ const configs = {
 };
 
 export const SCHEDULAR_TIMEINTERVAL = {
-  MOST_ACTIVE_CALLS: 2000
+  MOST_ACTIVE_CALLS: 18000
 };
 
 export const config = configs[devMode];
