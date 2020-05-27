@@ -1,16 +1,22 @@
 {
   "name": "tradesman",
+  "productName": "tradesman",
   "version": "0.0.0",
-  "main":"main.js",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "start:local": "ng serve --proxy-config proxy.json --ssl true",
     "build": "ng build",
+    "build:git": "ng build --prod --base-href https://retah7.github.io/tradesman/",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "start:electron": "ng build --base-href ./ && electron ."
+    "start:electron": "ng build --prod --base-href ./ && electron .",
+    "build:electron": "electron-packager tradesman . --platform=win32 --arch=x64",
+    "package-mac": "electron-packager . --overwrite --asar=true --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/windows/icon.ico --prune=true --out=release-builds --version-string.CompanyName='CE' --version-string.FileDescription='CE' --version-string.ProductName='ElectronTutorialApp'",
+    "create-installer-mac": "electron-installer-dmg ./release-builds/tradesman-darwin-x64/tradesman.app tradesman --out=release-builds --overwrite "
   },
   "private": true,
   "dependencies": {
@@ -49,6 +55,8 @@
     "body-parser": "^1.19.0",
     "codelyzer": "^5.0.0",
     "electron": "^8.2.5",
+    "electron-installer-dmg": "^3.0.0",
+    "electron-packager": "^14.2.1",
     "express": "^4.17.1",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
