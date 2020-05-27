@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, Observer} from 'rxjs';
 import {RestClient} from '../common/rest.client';
 import {config} from '../../config';
+import {MostActiveCallsResponse} from '../schedular/most-active-calls-response';
+import Store from '../store/store';
 
 const data = [
   {
@@ -673,13 +675,15 @@ const data = [
 export class ActiveCallsPutsService {
 
   private activeCallsSource = new BehaviorSubject(null);
-  public currentLease$ = this.activeCallsSource.asObservable();
+  public activeCallsPuts$ = this.activeCallsSource.asObservable();
 
   constructor( private http: RestClient ) {
+
   }
 
-  changeLease(leaseData: object) {
-    this.activeCallsSource.next(leaseData);
+  changeLease() {
+    const activeCalls = Store.getIndexData('activeCalls', []);
+    this.activeCallsSource.next(activeCalls);
   }
 
 
@@ -690,9 +694,10 @@ export class ActiveCallsPutsService {
       // console.log('index', index);
 
       this.http.get(config.MOST_ACTIVE_CALLS).subscribe(response => {
-        observer.next(response);
+        const transformedResponse = new MostActiveCallsResponse(response);
+        observer.next(transformedResponse);
         observer.complete();
-        this.changeLease(response);
+        this.changeLease();
       }, (err) => {
         observer.error(err);
 

@@ -1,4 +1,4 @@
-import {SCHEDULAR_TIMEINTERVAL} from '../../config';
+import {config, SCHEDULAR_TIMEINTERVAL} from '../../config';
 import {ActiveCallsPutsService} from '../services/active-calls-puts.service';
 import {Injectable} from '@angular/core';
 import {saveFile} from '../utils/file-saver';
@@ -6,6 +6,8 @@ import {formatToDDMMYY, formatToHHMMSS} from '../utils/date-formatter';
 import {MostActiveCallsResponse} from './most-active-calls-response';
 import Store from './../store/store';
 import StoreOperation from './../store/store-operation';
+import {BehaviorSubject, Observable, Observer} from 'rxjs';
+import {RestClient} from '../common/rest.client';
 
 @Injectable({
   providedIn: 'root'
@@ -18,25 +20,26 @@ export class MostActiveCallFetcher {
   continuousErrorCount: number;
   activeCallsStore: StoreOperation;
 
-  constructor(private activeCallsPutsService: ActiveCallsPutsService) {
+  private activeCallsSource = new BehaviorSubject(null);
+  public activeCallsPuts$ = this.activeCallsSource.asObservable();
+
+  constructor(private activeCallsPutsService: ActiveCallsPutsService, private http: RestClient) {
     this.activeCallsStore = Store.getIndexData('activeCalls', []);
     this.fetchHistory = [...this.activeCallsStore.get().map(data => data.id)];
     this.lastCallCompleted = true;
     this.continuousErrorCount = 0;
+    this.activeCallsSource.next([...this.activeCallsStore.get()]);
   }
 
   public start() {
     setTimeout(() => {
-      console.log('setTimeout');
       this.fetch();
     }, SCHEDULAR_TIMEINTERVAL.MOST_ACTIVE_CALLS);
   }
 
   private fetch() {
-    // console.log(this.fetchHistory);
-    // console.log('Last call completed, making new one');
     this.lastCallCompleted = false;
-    this.activeCallsPutsService.loadCalls().subscribe(response => {
+    this.loadCalls().subscribe(response => {
 
       this.lastCallCompleted = true;
       this.continuousErrorCount = 0;
@@ -54,16 +57,14 @@ export class MostActiveCallFetcher {
   }
 
   private processData(response) {
-    const transformedResponse = new MostActiveCallsResponse(response);
-    if ( this.isUniqueDataFound(transformedResponse) ) {
-      console.log('tran.ID', transformedResponse.id);
-      this.response = transformedResponse;
-      // Store.
+
+    if ( this.isUniqueDataFound(response) ) {
+      this.response = response;
       this.addToFetchHistory();
       // this.saveJsonFile();
-      this.activeCallsStore.set([...this.activeCallsStore.get(), this.response]);
+      this.updateLocalObservableData();
     } else {
-      console.log('Found same data');
+      console.log('======== FOUND_SAME_DATA: ACTIVE_CALLS ======== ');
     }
   }
 
@@ -86,6 +87,26 @@ export class MostActiveCallFetcher {
 
   private addToFetchHistory() {
     this.fetchHistory.push(this.response.id);
+  }
+
+  private updateLocalObservableData() {
+    const updatedData = [...this.activeCallsStore.get(), this.response];
+    this.activeCallsSource.next(updatedData);
+    this.activeCallsStore.set(updatedData);
+  }
+
+
+  private loadCalls(): Observable<any> {
+    return Observable.create((observer: Observer<any>) => {
+      this.http.get(config.MOST_ACTIVE_CALLS).subscribe(response => {
+        const transformedResponse = new MostActiveCallsResponse(response);
+        observer.next(transformedResponse);
+        observer.complete();
+      }, (err) => {
+        observer.error(err);
+
+      });
+    });
   }
 
 }
