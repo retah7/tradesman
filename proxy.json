@@ -3,5 +3,10 @@
     "target": "https://www1.nseindia.com",
     "secure": "false",
     "changeOrigin": true
+  },
+  "/live_market/dynaContent/live_analysis/most_active/PutsALLVolume.json": {
+    "target": "https://www1.nseindia.com",
+    "secure": "false",
+    "changeOrigin": true
   }
 }

@@ -8,27 +8,28 @@ import Store from './../store/store';
 import StoreOperation from './../store/store-operation';
 import {BehaviorSubject, Observable, Observer} from 'rxjs';
 import {RestClient} from '../common/rest.client';
+import {MostActivePutsResponse} from './most-active-puts-response';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MostActiveCallFetcher {
+export class MostActivePutFetcher {
 
   fetchHistory: any;
-  response: MostActiveCallsResponse;
+  response: MostActivePutsResponse;
   lastCallCompleted: any;
   continuousErrorCount: number;
   activeCallsStore: StoreOperation;
 
-  private activeCallsSource = new BehaviorSubject(null);
-  public activeCallsPuts$ = this.activeCallsSource.asObservable();
+  private activePutsSource = new BehaviorSubject(null);
+  public activeCallsPuts$ = this.activePutsSource.asObservable();
 
   constructor(private activeCallsPutsService: ActiveCallsPutsService, private http: RestClient) {
-    this.activeCallsStore = Store.getIndexData('activeCalls', []);
+    this.activeCallsStore = Store.getIndexData('activePuts', []);
     this.fetchHistory = [...this.activeCallsStore.get().map(data => data.id)];
     this.lastCallCompleted = true;
     this.continuousErrorCount = 0;
-    this.activeCallsSource.next([...this.activeCallsStore.get()]);
+    this.activePutsSource.next([...this.activeCallsStore.get()]);
   }
 
   public start() {
@@ -89,14 +90,14 @@ export class MostActiveCallFetcher {
 
   private updateLocalObservableData() {
     const updatedData = [...this.activeCallsStore.get(), this.response];
-    this.activeCallsSource.next(updatedData);
+    this.activePutsSource.next(updatedData);
     this.activeCallsStore.set(updatedData);
   }
 
 
   private loadCalls(): Observable<any> {
     return Observable.create((observer: Observer<any>) => {
-      this.http.get(config.MOST_ACTIVE_CALLS).subscribe(response => {
+      this.http.get(config.MOST_ACTIVE_PUTS).subscribe(response => {
         const transformedResponse = new MostActiveCallsResponse(response);
         observer.next(transformedResponse);
         observer.complete();

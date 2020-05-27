@@ -40,6 +40,7 @@ export class CallsPutsComponent implements OnInit {
 
   ngOnInit() {
     this.subscribeOnActiveCallsLive();
+    this.subscribeOnActivePutsLive();
   }
 
   private updateTableData(calls) {
@@ -56,6 +57,11 @@ export class CallsPutsComponent implements OnInit {
   }
 
   private subscribeOnActiveCallsLive() {
+    this.mostActiveCallFetcher.activeCallsPuts$.subscribe(res => {
+      if(res) this.updateTableData(res);
+    });
+  }
+  private subscribeOnActivePutsLive() {
     this.mostActiveCallFetcher.activeCallsPuts$.subscribe(res => {
       if(res) this.updateTableData(res);
     });
