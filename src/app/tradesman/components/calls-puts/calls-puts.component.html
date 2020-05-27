@@ -2,97 +2,21 @@
 
   <div class='header'>
     <div>
-      <h1 class="h1">Most Active Calls/Puts {{dataCount}}</h1>
+      <h1 class="h1">Most Active Calls/Puts</h1>
     </div>
   </div>
   <hr>
 
-  <div class="most-active__calls">
-    <h4>Calls</h4>
-    <mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8' matSortActive="time" matSortDirection="asc"
-               matSortDisableClear>
+  <mat-tab-group>
 
-      <ng-container matColumnDef="time">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Time. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
-      </ng-container>
+    <mat-tab label="Calls ({{calls.length}})">
+      <app-tab-data [key]="'Calls'" [data]="calls"></app-tab-data>
+    </mat-tab>
 
-      <ng-container matColumnDef="symbol">
-        <mat-header-cell class="mat-header-img" *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
-        <mat-cell class="mat-cell-img" *matCellDef="let element">
-          {{element.symbol}}
-        </mat-cell>
-      </ng-container>
+    <mat-tab label="Puts ({{puts.length}})">
+      <app-tab-data [key]="'Puts'" [data]="puts"></app-tab-data>
+    </mat-tab>
 
-      <ng-container matColumnDef="strikePrice">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Strike Price</mat-header-cell>
-        <mat-cell *matCellDef="let element" class="number-col"> {{element.strikePrice}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="volume">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Volume</mat-header-cell>
-        <mat-cell *matCellDef="let element" class="number-col">
-          <div class="square">{{element.noOfContractsTraded}}</div>
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="premium">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Premium</mat-header-cell>
-        <mat-cell *matCellDef="let element" class="number-col">
-          <div class="square">{{element.contractValuePremRsLakhs}}</div>
-        </mat-cell>
-      </ng-container>
-
-
-      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-
-    <mat-paginator [pageSizeOptions]="[25, 100, 200, 500]"></mat-paginator>
-  </div>
-
-  <div class="most-active__puts">
-    <h4>Calls</h4>
-    <mat-table [dataSource]='dataSource' matSort class='mat-elevation-z8' matSortActive="time" matSortDirection="asc"
-               matSortDisableClear>
-
-      <ng-container matColumnDef="time">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Time. </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.time}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="symbol">
-        <mat-header-cell class="mat-header-img" *matHeaderCellDef mat-sort-header> Symbol </mat-header-cell>
-        <mat-cell class="mat-cell-img" *matCellDef="let element">
-          {{element.symbol}}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="strikePrice">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Strike Price</mat-header-cell>
-        <mat-cell *matCellDef="let element" class="number-col"> {{element.strikePrice}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="volume">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Volume</mat-header-cell>
-        <mat-cell *matCellDef="let element" class="number-col">
-          <div class="square">{{element.noOfContractsTraded}}</div>
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="premium">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Premium</mat-header-cell>
-        <mat-cell *matCellDef="let element" class="number-col">
-          <div class="square">{{element.contractValuePremRsLakhs}}</div>
-        </mat-cell>
-      </ng-container>
-
-
-      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-
-    <mat-paginator [pageSizeOptions]="[25, 100, 200, 500]"></mat-paginator>
-  </div>
+  </mat-tab-group>
 
 </div>

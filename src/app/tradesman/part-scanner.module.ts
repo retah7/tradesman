@@ -13,6 +13,7 @@ import { MaterialModule } from './common/material/material.module';
 import { WebcamModule } from 'ngx-webcam';
 import { HomeComponent } from './components/home/home.component';
 import { CallsPutsComponent } from './components/calls-puts/calls-puts.component';
+import { TabDataComponent } from './components/calls-puts/tab-data/tab-data.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CallsPutsComponent } from './components/calls-puts/calls-puts.component
     SidebarComponent,
     CameraComponent,
     HomeComponent,
-    CallsPutsComponent
+    CallsPutsComponent,
+    TabDataComponent
   ],
   imports: [
     CommonModule,
