@@ -30,7 +30,6 @@ class Store {
   }
 
   getIndexData(indexName, initialState) {
-    this.initialize();
     if( !this.tradesmanStore.data[indexName] ) {
       this.tradesmanStore.data[indexName] = initialState;
       LS.set('tradesman', this.tradesmanStore);

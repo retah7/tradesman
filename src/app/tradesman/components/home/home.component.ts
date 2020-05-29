@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MostActiveCallFetcher} from '../../schedular/most-active-call-fetcher';
 import {MostActivePutFetcher} from '../../schedular/most-active-put-fetcher';
+import Store from './../../store/store';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,11 @@ import {MostActivePutFetcher} from '../../schedular/most-active-put-fetcher';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private mostActiceCallFetcher: MostActiveCallFetcher, private mostActivePutFetcher: MostActivePutFetcher) { }
+  constructor(private mostActiveCallFetcher: MostActiveCallFetcher, private mostActivePutFetcher: MostActivePutFetcher) { }
 
   ngOnInit() {
-    this.mostActiceCallFetcher.start();
+    Store.initialize();
+    this.mostActiveCallFetcher.start();
     this.mostActivePutFetcher.start();
   }
 

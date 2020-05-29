@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MostActiveCallFetcher} from '../../schedular/most-active-call-fetcher';
+import {MostActivePutFetcher} from '../../schedular/most-active-put-fetcher';
 
 @Component({
   selector: 'app-calls-puts',
@@ -10,7 +11,7 @@ export class CallsPutsComponent implements OnInit {
   calls: any;
   puts: any;
 
-  constructor(private mostActiveCallFetcher: MostActiveCallFetcher) { }
+  constructor(private mostActiveCallFetcher: MostActiveCallFetcher, private mostActivePutFetcher: MostActivePutFetcher) { }
 
   ngOnInit() {
     this.subscribeOnActiveCallsLive();
@@ -24,7 +25,7 @@ export class CallsPutsComponent implements OnInit {
     });
   }
   private subscribeOnActivePutsLive() {
-    this.mostActiveCallFetcher.activeCallsPuts$.subscribe(res => {
+    this.mostActivePutFetcher.activeCallsPuts$.subscribe(res => {
       if(res) this.puts = res;
     });
   }

@@ -1,9 +1,7 @@
 import {config, SCHEDULAR_TIMEINTERVAL} from '../../config';
-import {ActiveCallsPutsService} from '../services/active-calls-puts.service';
 import {Injectable} from '@angular/core';
 import {saveFile} from '../utils/file-saver';
 import {formatToDDMMYY, formatToHHMMSS} from '../utils/date-formatter';
-import {MostActiveCallsResponse} from './most-active-calls-response';
 import Store from './../store/store';
 import StoreOperation from './../store/store-operation';
 import {BehaviorSubject, Observable, Observer} from 'rxjs';
@@ -24,7 +22,7 @@ export class MostActivePutFetcher {
   private activePutsSource = new BehaviorSubject(null);
   public activeCallsPuts$ = this.activePutsSource.asObservable();
 
-  constructor(private activeCallsPutsService: ActiveCallsPutsService, private http: RestClient) {
+  constructor(private http: RestClient) {
     this.activeCallsStore = Store.getIndexData('activePuts', []);
     this.fetchHistory = [...this.activeCallsStore.get().map(data => data.id)];
     this.lastCallCompleted = true;
@@ -63,7 +61,7 @@ export class MostActivePutFetcher {
       // this.saveJsonFile();
       this.updateLocalObservableData();
     } else {
-      console.log('======== FOUND_SAME_DATA: ACTIVE_CALLS ======== ');
+      console.log('======== FOUND_SAME_DATA: ACTIVE_PUTS ======== ');
     }
   }
 
@@ -72,7 +70,7 @@ export class MostActivePutFetcher {
   }
 
   private saveJsonFile() {
-    const fileName = 'Most_Active_Calls_' + formatToDDMMYY(this.response.dateObj) + formatToHHMMSS(this.response.dateObj) + '.json';
+    const fileName = 'Most_Active_Puts_' + formatToDDMMYY(this.response.dateObj) + formatToHHMMSS(this.response.dateObj) + '.json';
     saveFile(JSON.stringify(this.response.data), fileName, 'application/json');
   }
 
@@ -98,7 +96,7 @@ export class MostActivePutFetcher {
   private loadCalls(): Observable<any> {
     return Observable.create((observer: Observer<any>) => {
       this.http.get(config.MOST_ACTIVE_PUTS).subscribe(response => {
-        const transformedResponse = new MostActiveCallsResponse(response);
+        const transformedResponse = new MostActivePutsResponse(response);
         observer.next(transformedResponse);
         observer.complete();
       }, (err) => {

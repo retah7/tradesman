@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
@@ -6,7 +6,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
   templateUrl: './tab-data.component.html',
   styleUrls: ['./tab-data.component.scss']
 })
-export class TabDataComponent implements OnInit {
+export class TabDataComponent implements OnInit, OnChanges {
   displayedColumns: string[] = ['time', 'symbol', 'strikePrice', 'volume', 'premium'];
   dataSource: any;
   dataCount: any;
@@ -31,6 +31,10 @@ export class TabDataComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.updateTableData(this.data);
+  }
+
+  ngOnChanges() {
     this.updateTableData(this.data);
   }
 
