@@ -65,6 +65,15 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "local": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ],
+              "serviceWorker": true
             }
           }
         },
@@ -76,6 +85,9 @@
           "configurations": {
             "production": {
               "browserTarget": "UTC:build:production"
+            },
+            "local": {
+              "browserTarget": "UTC:build:local"
             }
           }
         },

@@ -1,0 +1,3 @@
+export const SCHEDULAR_TIMEINTERVAL = {
+  STANDARD: 18000
+};
