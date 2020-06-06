@@ -1,0 +1,30 @@
+appId: com.example.tradesman
+productName: Tradesman
+files:
+  - "**/*"
+  - dist/**/*
+directories:
+  output: release
+  buildResources: dist
+dmg:
+  contents:
+    - x: 110
+      y: 150
+    - x: 240
+      y: 150
+      type: link
+      path: "/Applications"
+linux:
+  target:
+    - AppImage
+    - deb
+win:
+  target:
+    - nsis
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  license: "license.txt"
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
