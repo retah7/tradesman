@@ -1,10 +1,12 @@
-appId: com.example.tradesman
+appId: com.retahsoft.tradesman
 productName: Tradesman
+publish:
+  provider: github
 files:
   - "**/*"
   - dist/**/*
 directories:
-  output: release
+  output: build-packages
   buildResources: dist
 dmg:
   contents:
