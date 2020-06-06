@@ -34,15 +34,15 @@ function createWindow () {
     autoUpdater.checkForUpdatesAndNotify();
   });
 
-//   mainWindow.webContents.on('did-fail-load', () => {
-//     console.log('did-fail-load');
-//     mainWindow.loadURL(url.format({
-//       pathname: path.join(__dirname, '/dist/index.html'),
-//       protocol: 'file:',
-//       slashes: true
-//     }));
-// // REDIRECT TO FIRST WEBPAGE AGAIN
-//   });
+  mainWindow.webContents.on('did-fail-load', () => {
+    console.log('did-fail-load');
+    mainWindow.loadURL(url.format({
+      pathname: path.join(__dirname, '/dist/index.html'),
+      protocol: 'file:',
+      slashes: true
+    }));
+// REDIRECT TO FIRST WEBPAGE AGAIN
+  });
 
 }
 

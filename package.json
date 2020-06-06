@@ -20,6 +20,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "electron:build:mac": "rm -rf build-packages && electron-builder --mac --publish never",
+    "electron:build:win64": "rm -rf build-packages && electron-builder --win --x64 --publish never",
     "electron:build:macwin": "electron-builder --mac --win --x64 --publish never",
     "electron:build:macwin:publish": "electron-builder --mac --win --x64 --publish always",
     "postinstall": "install-app-deps",
