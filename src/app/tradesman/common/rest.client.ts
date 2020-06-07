@@ -16,7 +16,7 @@ export class RestClient {
         return {
             headers: new HttpHeaders({
             //   'Content-Type':  'application/json',
-              'Authorization': localStorage.getItem('token')
+            //   'Authorization': localStorage.getItem('token')
             })
         };
     }

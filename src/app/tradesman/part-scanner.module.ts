@@ -14,6 +14,7 @@ import { WebcamModule } from 'ngx-webcam';
 import { HomeComponent } from './components/home/home.component';
 import { CallsPutsComponent } from './components/calls-puts/calls-puts.component';
 import { TabDataComponent } from './components/calls-puts/tab-data/tab-data.component';
+import Store from './store/store';
 
 @NgModule({
   declarations: [
@@ -41,4 +42,10 @@ import { TabDataComponent } from './components/calls-puts/tab-data/tab-data.comp
     NgbActiveModal
   ]
 })
-export class PartScannerModule { }
+export class PartScannerModule {
+
+  constructor() {
+    Store.initialize();
+  }
+
+}

@@ -43,9 +43,10 @@ export class MostActiveCallFetcher {
       this.continuousErrorCount = 0;
       this.processData(response);
       this.start();
-    }, () => {
+    }, (e) => {
       this.lastCallCompleted = true;
       this.continuousErrorCount++;
+      console.log(e);
       console.log('Error occurred: trying count', this.continuousErrorCount);
       if (this.continuousErrorCount < 5) {
         this.start();
