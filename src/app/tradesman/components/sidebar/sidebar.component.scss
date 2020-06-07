@@ -1,7 +1,6 @@
 $topnav-background-color: #212529;
 
 .sidebar {
-    margin-top: 44px;
     border-radius: 0;
     position: fixed;
     z-index: 1000;
@@ -40,7 +39,7 @@ $topnav-background-color: #212529;
             color: black;
         }
         a.router-link-active {
-            
+
             background-color: #fff ;
             color: black;
         }
@@ -205,7 +204,7 @@ $topnav-background-color: #212529;
 .not-focusable:focus {
     outline: none;
     box-shadow: none;
-}   
+}
 
 
 .btn.btn-default {
@@ -215,12 +214,12 @@ $topnav-background-color: #212529;
      /*justify-content: flex-start;*/
 }
 .btn {
-     border-radius: 0;   
+     border-radius: 0;
 }
 .btn.btn-outline-dark:hover {
     background-color: white;
     color:#343a40;
-    
+
     /*display: flex;
     justify-content: flex-start;*/
 
@@ -229,14 +228,14 @@ $topnav-background-color: #212529;
     display: flex;
     justify-content: space-between;
     padding: 20px 0px;
-    
-    .btn {  
+
+    .btn {
         flex: 0.3;
     }
 }
 
 .btn:hover {
-    color:white; 
+    color:white;
 }
 
 .row {
@@ -250,7 +249,7 @@ select {
     padding-left: 8px;
     select.option :disabled {
         color: #ced4da;
-      } 
+      }
 }
 
 .form-data {
@@ -266,5 +265,5 @@ select {
         max-width: 350px;
         max-height: 350px;
     }
-    
+
 }
