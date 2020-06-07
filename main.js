@@ -2,6 +2,7 @@ const {app, BrowserWindow, ipcMain} = require("electron");
 const { autoUpdater } = require("electron-updater");
 const url = require("url");
 const path = require("path");
+const logger = require('electron-log');
 
 let mainWindow;
 
@@ -46,7 +47,46 @@ function createWindow () {
 
 }
 
-app.on("ready", createWindow);
+app.on("ready", async () => {
+  //try to update!
+  try {
+    const info = await autoUpdater.checkForUpdatesAndNotify();
+    logger.info('checkForUpdatesAndNotify');
+    logger.info(JSON.stringify(info));
+
+    autoUpdater.on('update-downloaded', info => {
+      const quitAndInstalled = autoUpdater.quitAndInstall();
+      logger.info('quitAndInstalled');
+      logger.info(quitAndInstalled);
+    });
+
+    autoUpdater.on('update-available', arg => {
+      logger.info('update-available');
+      logger.info(arg);
+    });
+
+    autoUpdater.on('update-not-available', arg => {
+      logger.info('update-not-available');
+      logger.info(arg);
+    });
+
+    autoUpdater.on('download-progress', arg => {
+      logger.info('download-progress');
+      logger.info(arg);
+    });
+
+    autoUpdater.on('error', error => {
+      logger.info('error');
+      logger.info(error.message);
+      logger.info(error.stack);
+    });
+  }
+  catch (error) {
+    logger.info('autoupdate failed');
+  }
+
+  createWindow();
+});
 
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
