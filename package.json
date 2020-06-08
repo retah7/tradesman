@@ -3,7 +3,7 @@
   "productName": "tradesman",
   "description": "Trade like you are gonna win it",
   "author": "Shubhranshu Tiwari",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "main.js",
   "repository": {
     "type": "git",
