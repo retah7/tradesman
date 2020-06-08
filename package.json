@@ -23,7 +23,7 @@
     "electron:build:mac": "rm -rf build-packages && electron-builder --mac --publish never",
     "electron:build:win64": "rm -rf build-packages && electron-builder --win --x64 --publish never",
     "electron:build:macwin": "electron-builder --mac --win --x64 --publish never",
-    "electron:build:macwin:publish": "rm -rf dist && npm run build:prod && electron-builder --mac --win --x64 --publish always",
+    "electron:build:macwin:publish": "rm -rf dist && npm run build:prod && electron-builder --mac --win --x64 --ia32 --publish always",
     "postinstall": "install-app-deps",
     "pack": "electron-builder --dir",
     "package:electron": "electron-packager tradesman . --platform=win32 --arch=x64",
