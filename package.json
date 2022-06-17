@@ -69,7 +69,7 @@
     "@types/node": "~8.9.4",
     "body-parser": "^1.19.0",
     "codelyzer": "^5.0.0",
-    "electron": "^8.2.5",
+    "electron": "^15.5.5",
     "electron-builder": "^21.2.0",
     "electron-installer-dmg": "^3.0.0",
     "electron-packager": "^14.2.1",
